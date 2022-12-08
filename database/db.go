@@ -3,7 +3,6 @@ package database
 import (
 	"bankproject/models"
 	"bankproject/seeds"
-	"database/sql"
 	"fmt"
 	"log"
 	"strconv"
@@ -14,22 +13,18 @@ import (
 )
 
 func Init() *gorm.DB {
-	var err error // define error here to prevent overshadowing the global DB
-
-	connStr := "postgres://postgres:08112001@localhost:5432/battlegame"
-	// Connect to database
-	db, err := sql.Open("postgres", connStr)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("232233223")
-	db.Exec("DROP SCHEMA public CASCADE")
-	db.Close()
-
 	dbURL := "postgres://postgres:08112001@localhost:5432/bank"
 	DB, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	if err := DB.Exec("DROP SCHEMA IF EXISTS public CASCADE;").Error; err != nil {
+		panic(err)
+	}
+
+	if err := DB.Exec("Create SCHEMA public;").Error; err != nil {
+		panic(err)
 	}
 
 	err = DB.Migrator().DropTable(models.User{}, models.Bank{}, models.Interest{})
