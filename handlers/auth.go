@@ -77,9 +77,6 @@ func (h handler) Login(w http.ResponseWriter, r *http.Request) {
 	}
 	if found.Hash == user.Hash {
 		token, _ := generateJWT(found.Username, found.ID, found.AccessLevel)
-		fmt.Println(found.Username)
-		fmt.Println(found.ID)
-		fmt.Println(found.AccessLevel)
 
 		type Response struct {
 			Code    string

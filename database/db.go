@@ -27,8 +27,6 @@ func Init() *gorm.DB {
 		panic(err)
 	}
 
-	err = DB.Migrator().DropTable(models.User{}, models.Bank{}, models.Interest{})
-
 	if err != nil {
 		log.Fatal(err)
 	}
