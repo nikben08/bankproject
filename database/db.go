@@ -34,19 +34,19 @@ func Init() *gorm.DB {
 		log.Fatal(err)
 	}
 
-	user_migration, err := ioutil.ReadFile("/bankproject/database/user_migration.sql")
+	user_migration, err := ioutil.ReadFile("/bankproject/database/sql/user_migration.sql")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	bank_migration, err := ioutil.ReadFile("/bankproject/database/bank_migration.sql")
+	bank_migration, err := ioutil.ReadFile("/bankproject/database/sql/bank_migration.sql")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	interest_migration, err := ioutil.ReadFile("/bankproject/database/interest_migration.sql")
+	interest_migration, err := ioutil.ReadFile("/bankproject/database/sql/interest_migration.sql")
 
 	if err != nil {
 		log.Fatal(err)
