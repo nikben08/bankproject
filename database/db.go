@@ -1,6 +1,7 @@
 package database
 
 import (
+	"bankproject/config"
 	"bankproject/models"
 	"bankproject/seeds"
 	"fmt"
@@ -14,8 +15,8 @@ import (
 )
 
 func Init() *gorm.DB {
-	dbURL := "postgres://postgres:08112001@localhost:5432/"
-	DB, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
+	dsn := fmt.Sprintf("host=%s user=%s password=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", config.Config("DBHost"), config.Config("DBUsername"), config.Config("DBUserPassword"), config.Config("DBPort"))
+	DB, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -28,8 +29,8 @@ func Init() *gorm.DB {
 		panic(err)
 	}
 
-	dbURL = "postgres://postgres:08112001@localhost:5432/bank"
-	DB, err = gorm.Open(postgres.Open(dbURL), &gorm.Config{})
+	dsn = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", config.Config("DBHost"), config.Config("DBUsername"), config.Config("DBUserPassword"), config.Config("DBName"), config.Config("DBPort"))
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
